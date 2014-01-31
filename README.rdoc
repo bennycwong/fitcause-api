@@ -1,0 +1,4 @@
+To start, please run:
+rake db:setup
+
+Notes: You have to have mongodb running.
