@@ -1,47 +1,52 @@
-==To start, please run:
-rake db:setup
+==To start, please run the following command:
+  rake db:setup
+This will setup the database, tables, and a couple initial missions.
 
 Notes: You have to have mongodb running.
 
 
-To make testing way easier, use the Chrome Extension called <tt>Postman - REST Client</tt> https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en
+To make testing way easier, use the Chrome Extension called <tt>Postman - REST Client</tt> 
+https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en
 
 
 ==To test the API using Curl:
 
-1. GET
-	curl -i -H "Accept: application/json" http://localhost:3000/api/v1/missions/
+===1. GET
+
+  curl -i -H "Accept: application/json" http://localhost:3000/api/v1/missions/
 	*Pick an id from the list. Store that mentally as {valid_id}
 
-2. POST
+===2. POST
 
 	Successful: (name, image and global points are all set)
-	curl --data "name=mediocrewill&image=mediocrewill.png&goal_points=10000000" http://localhost:3000/api/v1/missions/
+  curl --data "name=mediocrewill&image=mediocrewill.png&goal_points=10000000" http://localhost:3000/api/v1/missions/
 
 	Missing data: (name, image or global points not there)
-	curl --data "image=mediocrewill.png&current_points=0&goal_points=10000000" http://localhost:3000/api/v1/missions/
+  curl --data "image=mediocrewill.png&current_points=0&goal_points=10000000" http://localhost:3000/api/v1/missions/
 
 	Not missing any parameters, but provided invalid data. 
-	curl --data "name=&image=mediocrewill.png&current_points=0&goal_points=10000000" http://localhost:3000/api/v1/missions/
+  curl --data "name=&image=mediocrewill.png&current_points=0&goal_points=10000000" http://localhost:3000/api/v1/missions/
 
 
 
 
-3. PUT
+===3. PUT
+
 	Sucessful: (Valid parameters and valid id)
-	curl -X PUT -d image=test http://localhost:3000/api/v1/missions/{valid_id}
+  curl -X PUT -d image=test http://localhost:3000/api/v1/missions/{valid_id}
 			
 	Can't find ID:
-	curl -X PUT -d image=test http://localhost:3000/api/v1/missions/123
+  curl -X PUT -d image=test http://localhost:3000/api/v1/missions/123
 
 	Can find ID but invalid parameters.
-	curl -X PUT -d name="" http://localhost:3000/api/v1/missions/{valid_id}
+  curl -X PUT -d name="" http://localhost:3000/api/v1/missions/{valid_id}
 
 
-4. DELETE
+===4. DELETE
+
 	Successful:
-	curl -X DELETE "http://localhost:3000/api/v1/missions/{valid_id}"
+  curl -X DELETE "http://localhost:3000/api/v1/missions/{valid_id}"
 	
 	Can't find the id to delete:
-	curl -X DELETE "http://localhost:3000/api/v1/missions/1123"
+  curl -X DELETE "http://localhost:3000/api/v1/missions/1123"
 		
