@@ -19,15 +19,15 @@ class Api::V1::MissionsController < ActionController::Base
   # GET /api/missions/1
   # GET /api/missions/1.json
   def show
-   if not @mission = Mission.find(params[:id])
+    if not @mission = Mission.find(params[:id])
       render json: "Mission not found for id: " + params[:id]
-   else
-     respond_to do |format|
-       format.json { render json: @mission }
-       format.xml { render xml: @mission }
-     end
+    else
+      respond_to do |format|
+        format.json { render json: @mission }
+        format.xml { render xml: @mission }
+      end
     end
-   end
+  end
   
   # POST /api/missions.xml
   # POST /api/missions.json
@@ -59,43 +59,43 @@ class Api::V1::MissionsController < ActionController::Base
   def update
     
     if !params[:image] && !params[:current_points] && !params[:goal_points] && !params[:name]
-        respond_to do |format|
-          format.json { render json: "You did not pass in correct parameter. Please pass in one of the following values: goal_points, current_points, image, name", status: :unprocessable_entity }
-        end   
+      respond_to do |format|
+        format.json { render json: "You did not pass in correct parameter. Please pass in one of the following values: goal_points, current_points, image, name", status: :unprocessable_entity }
+      end   
     else
      
-    #if it can find the record 
-    if not @mission = Mission.find(params[:id])
-      render json: "Mission not found for id: " + params[:id]
-    else
-      if params[:name]
-        @mission.name = params[:name]
-      end
-    
-      if params[:goal_points]
-         @mission.goal_points = params[:goal_points].to_i
-       end
-    
-      if params[:current_points]
-         @mission.current_points = params[:current_points].to_i
-      end
-    
-      if params[:image]
-         @mission.image = params[:image]
-      end
-      
-      respond_to do |format|
-        if @mission.valid?
-          @mission.save
-          format.json { render json: "Update Successful"}
-              
-        else
-          format.json { render json: @mission.errors, status: :unprocessable_entity }
+      #if it can find the record 
+      if not @mission = Mission.find(params[:id])
+        render json: "Mission not found for id: " + params[:id]
+      else
+        if params[:name]
+          @mission.name = params[:name]
         end
-      end
+    
+        if params[:goal_points]
+          @mission.goal_points = params[:goal_points].to_i
+        end
+    
+        if params[:current_points]
+          @mission.current_points = params[:current_points].to_i
+        end
+    
+        if params[:image]
+          @mission.image = params[:image]
+        end
+      
+        respond_to do |format|
+          if @mission.valid?
+            @mission.save
+            format.json { render json: "Update Successful"}
+              
+          else
+            format.json { render json: @mission.errors, status: :unprocessable_entity }
+          end
+        end
    
       
-    end
+      end
     end  
   end
 
@@ -116,10 +116,10 @@ class Api::V1::MissionsController < ActionController::Base
   
   end
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def mission_params
-        params.require(:mission).permit(:name, :image)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def mission_params
+    params.require(:mission).permit(:name, :image)
+  end
   
   
   
