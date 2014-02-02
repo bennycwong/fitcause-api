@@ -4,11 +4,16 @@ class Api::V1::MissionsController < ActionController::Base
   # GET /api/v1/missions.json
   # GET /api/v1/missions.xml
   def index
-    @mission = Mission.order("missions.updated_at DESC").all
-        respond_to do |format|
-          format.json { render json: @mission }
-          format.xml { render xml: @mission }
-        end
+    
+    if params[:name]
+      @mission = Mission.where(:name => params[:name]).order("misson.update_at DESC")
+    else
+      @mission = Mission.order("missions.updated_at DESC").all
+    end 
+    respond_to do |format|
+      format.json { render json: @mission }
+      format.xml { render xml: @mission }
+    end     
   end
 
   # GET /api/missions/1

@@ -15,6 +15,9 @@ https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojoj
 
   curl -i -H "Accept: application/json" http://localhost:3000/api/v1/missions/
 	*Pick an id from the list. Store that mentally as {valid_id}
+	
+	This can also accept a search based on the name parameters. For example:
+	curl -i -H "Accept: application/json" http://localhost:3000/api/v1/missions/?name=Goodwill
 
 ===2. POST
 
